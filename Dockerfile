@@ -26,5 +26,5 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY senator-scraper.py .
-EXPOSE 8000
-CMD ["uvicorn", "senator-scraper:app", "--host", "0.0.0.0", "--port", "8000"]
+EXPOSE $PORT  
+CMD ["uvicorn", "senator-scraper:app", "--host", "0.0.0.0", "--port", "$PORT"]
