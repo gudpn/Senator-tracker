@@ -6,6 +6,7 @@ import re
 from typing import Optional
 import logging
 from playwright.async_api import async_playwright
+import os  # Add os import for PORT
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -394,4 +395,5 @@ async def debug_page(
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="debug")
+    port = int(os.getenv("PORT", 8000))  # Use PORT env var, default to 8000 locally
+    uvicorn.run(app, host="0.0.0.0", port=port, log_level="debug")
