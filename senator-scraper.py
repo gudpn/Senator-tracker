@@ -154,6 +154,7 @@ async def get_trades(
     include_stock: bool = True,
     include_option: bool = True
 ):
+    logger.debug(f"Received request: start_date={start_date}, end_date={end_date}, trade_type={trade_type}")
     try:
         # Set default date range: last 30 days if not specified
         if not end_date:
@@ -395,5 +396,6 @@ async def debug_page(
 
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.getenv("PORT", 8000))  # Use PORT env var, default to 8000 locally
+    port = int(os.getenv("PORT", 8000))  # Default to 8000 locally
+    logger.info(f"Starting Uvicorn on port {port}")
     uvicorn.run(app, host="0.0.0.0", port=port, log_level="debug")

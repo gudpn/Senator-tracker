@@ -15,6 +15,11 @@ RUN apt-get update && apt-get install -y \
     libgtk-3-0 \
     libasound2 \
     libgbm1 \
+    libdrm2 \
+    libxkbcommon0 \
+    libxfixes3 \
+    libxrandr2 \
+    libatspi2.0-0 \
     && apt-get clean
 
 # Install Playwright dependencies and browsers
@@ -26,5 +31,5 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY senator-scraper.py .
-EXPOSE $PORT  
-CMD ["uvicorn", "senator-scraper:app", "--host", "0.0.0.0", "--port", "$PORT"]
+EXPOSE $PORT
+CMD ["/bin/sh", "-c", "uvicorn senator-scraper:app --host 0.0.0.0 --port ${PORT:-10000}"]
